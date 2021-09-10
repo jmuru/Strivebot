@@ -73,9 +73,11 @@ func (tc *TwitterClient) StartStream() {
 		fmt.Println(tweet.Text)
 		fmt.Println(tweet.QuotedStatusIDStr)
 		if !tweet.PossiblySensitive {
-			err := tc.tCache.StoreTweetFromStream(tweet.QuotedStatusIDStr); if err != nil {
-				fmt.Errorf("unable to store tweet")
-			}
+			go func (id string) {
+				err := tc.tCache.StoreTweetFromStream(id); if err != nil {
+					fmt.Errorf("unable to store tweet")
+				}
+			}(tweet.QuotedStatusIDStr)
 		}
 	}
 	demux.DM = func(dm *twitter.DirectMessage) {
