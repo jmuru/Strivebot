@@ -71,4 +71,5 @@ func (c *Cache) ProcessTweetsFromCache() {
 	// get info for all tweets currently in cache
 
 	c.cache.Flush()
+
 }
