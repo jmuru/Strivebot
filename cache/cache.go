@@ -48,11 +48,7 @@ func (c *Cache) StoreTweetFromStream(id string) error {
 	}
 
 	if cs {
-		//var wg sync.WaitGroup
-		//wg.Add(1)
-		//c.ProcessTweetsFromCache(&wg)
 		c.ProcessTweetsFromCache()
-		//wg.Wait()
 	}
 	return nil
 }
@@ -70,12 +66,10 @@ func (c *Cache) CheckCacheSize() (bool, error) {
 }
 
 func (c *Cache) ProcessTweetsFromCache() {
-	//c.mutex.Lock()
 	cacheState := c.GetCache(COLLECTED_TWEETS)
 	fmt.Println(fmt.Sprintf(`cache state before flush %v` , cacheState))
 	// get info for all tweets currently in cache
 
 	c.cache.Flush()
-	//c.mutex.Unlock()
-	//wg.Done()
+
 }
